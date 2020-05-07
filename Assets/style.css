@@ -1,0 +1,20 @@
+.col-md-4 {
+  margin-top: 0;
+  background-color: aliceblue;
+}
+
+.col-md-4 h3,
+.col-md-4 ul {
+  margin-left: 15px;
+}
+
+.col-md-8 {
+}
+
+#daily {
+  background-color: azure;
+}
+
+#fiveDay {
+  background-color: burlywood;
+}
