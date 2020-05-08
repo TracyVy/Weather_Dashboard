@@ -15,17 +15,12 @@
 }
 
 #daily {
-  height: 28vh;
+  height: 30vh;
   border-bottom-style: groove;
 }
 
-/* #fiveDay {
-  
-} */
-
-/* .col-md-2 {
-  padding-top: 10px;
-  height: 35vh;
-  background-color: darksalmon;
-  border-style: solid;
-} */
+.col-md-2 {
+  padding-top: 20px;
+  height: 20vh;
+  margin-inline: 2px;
+}

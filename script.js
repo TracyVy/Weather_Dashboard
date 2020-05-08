@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     //Basic ajax request
     var today = moment().format("MM/DD/YYYY");
-    var cityName0 = "";
+    var cityName = "";
     var icon0 = "";
     var temp0 = "";
     var hum0 = "";
@@ -25,24 +25,24 @@ $(document).ready(function () {
     var uv0 = "";
     var lat0 = "";
     var lon0 = "";
-    var today1 = moment(today, "MM/DD/YYYY").add(1, "days");
+    var today1 = moment(today).add(1, "days").format("MM/DD/YYYY");
     console.log(today1);
     var icon1 = "";
     var temp1 = "";
     var hum1 = "";
-    var today2 = moment(today, "MM/DD/YYYY").add(2, "days");
+    var today2 = moment(today).add(2, "days").format("MM/DD/YYYY");
     var icon2 = "";
     var temp2 = "";
     var hum2 = "";
-    var today3 = moment(today, "MM/DD/YYYY").add(3, "days");
+    var today3 = moment(today).add(3, "days").format("MM/DD/YYYY");
     var icon3 = "";
     var temp3 = "";
     var hum3 = "";
-    var today4 = moment(today, "MM/DD/YYYY").add(4, "days");
+    var today4 = moment(today).add(4, "days").format("MM/DD/YYYY");
     var icon4 = "";
     var temp4 = "";
     var hum4 = "";
-    var today5 = moment(today, "MM/DD/YYYY").add(5, "days");
+    var today5 = moment(today).add(5, "days").format("MM/DD/YYYY");
     var icon5 = "";
     var temp5 = "";
     var hum5 = "";
@@ -58,16 +58,16 @@ $(document).ready(function () {
       // API call to get UV index requires lat & lon
       $.ajax({
         type: "GET",
-        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely${apiKey}${units}`,
+        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,hourly,minutely${apiKey}${units}`,
         datatype: "JSON",
       }).then(function (res) {
         console.log(res);
-        icon0 = res.current.weather[0].icon;
-        temp0 = res.current.temp;
-        hum0 = res.current.humidity;
-        wind0 = res.current.wind_speed;
+        icon0 = res.daily[0].weather[0].icon;
+        temp0 = res.daily[0].temp;
+        hum0 = res.daily[0].humidity;
+        wind0 = res.daily[0].wind_speed;
         console.log(wind0);
-        uv0 = res.current.uvi;
+        uv0 = res.daily[0].uvi;
         icon1 = res.daily[1].weather[0].icon;
         temp1 = res.daily[1].temp.day;
         hum1 = res.daily[1].humidity;
@@ -97,6 +97,36 @@ $(document).ready(function () {
         $("#daily").append(`<p>Wind Speed: ${wind0} MPH</p>`);
         $("#daily").append(`<p>UV Index: ${uv0} </p>`);
         $("#fiveDay").html(`<h4>5-Day Forecast:</h4>`);
+        $("#forecast1").append(`<h5>${today1}</h5>`);
+        $("#forecast1").append(
+          `<img src=http://openweathermap.org/img/w/${icon1}.png />`
+        );
+        $("#forecast1").append(`<p>Temp: ${temp1}&#8457;</p>`);
+        $("#forecast1").append(`<p>Humidity: ${hum1}%</p>`);
+        $("#forecast2").append(`<h5>${today2}</h5>`);
+        $("#forecast2").append(
+          `<img src=http://openweathermap.org/img/w/${icon2}.png />`
+        );
+        $("#forecast2").append(`<p>Temp: ${temp2}&#8457;</p>`);
+        $("#forecast2").append(`<p>Humidity: ${hum2}%</p>`);
+        $("#forecast3").append(`<h5>${today3}</h5>`);
+        $("#forecast3").append(
+          `<img src=http://openweathermap.org/img/w/${icon3}.png />`
+        );
+        $("#forecast3").append(`<p>Temp: ${temp3}&#8457;</p>`);
+        $("#forecast3").append(`<p>Humidity: ${hum3}%</p>`);
+        $("#forecast4").append(`<h5>${today4}</h5>`);
+        $("#forecast4").append(
+          `<img src=http://openweathermap.org/img/w/${icon4}.png />`
+        );
+        $("#forecast4").append(`<p>Temp: ${temp4}&#8457;</p>`);
+        $("#forecast4").append(`<p>Humidity: ${hum4}%</p>`);
+        $("#forecast5").append(`<h5>${today5}</h5>`);
+        $("#forecast5").append(
+          `<img src=http://openweathermap.org/img/w/${icon5}.png />`
+        );
+        $("#forecast5").append(`<p>Temp: ${temp5}&#8457;</p>`);
+        $("#forecast5").append(`<p>Humidity: ${hum5}%</p>`);
       });
     });
   });
