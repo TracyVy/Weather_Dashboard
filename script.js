@@ -9,7 +9,6 @@ $(document).ready(function () {
   $("#submit").on("click", function (e) {
     e.preventDefault();
 
-    cityInput = select("#cityInput");
     //Storing cityInput
     cityInput = $("#cityInput").val();
     console.log(cityInput);
@@ -17,13 +16,30 @@ $(document).ready(function () {
     $("#cityInput").val("");
 
     //Basic ajax request
+    /** 
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: `https://api.openweathermap.org/data/2.5/weather?zip=${cityInput}${apiKey}&units=imperial`,
+    }).then(function (res) {
+      console.log(res);
+    });
+*/
+
+    var cityName = "";
+    var temp = "";
     $.ajax({
       type: "GET",
       url: `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
       datatype: "JSON",
     }).then(function (response) {
       console.log(response);
+      cityName = response.name;
+      temp = response.main.temp;
     });
+
+    $("#daily").prepend(`<div>City: ${cityName}</div>`);
+    $("#fiveDay").prepend(`<div>Temperature: ${temp}</div>`);
   });
 });
 
