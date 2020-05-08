@@ -22,3 +22,9 @@
 /* #fiveDay {
   
 } */
+
+.col-md-2 {
+  height: 35vh;
+  background-color: darksalmon;
+  border-style: solid;
+}

@@ -50,6 +50,7 @@ $(document).ready(function () {
         $("#history").prepend(
           `<h4 style="border:thin dotted grey;">${cityInput}</h4>`
         );
+        $("#daily").empty();
         $("#daily").append(`<h3>${cityName0} (${today})</h3>`);
         $("#daily").append(`<p>Temperature: ${temp0}&#8457;</p>`);
         $("#daily").append(`<p>Humidity: ${hum0}%</p>`);
@@ -58,9 +59,9 @@ $(document).ready(function () {
       });
     });
   });
-
-  // $("#fiveDay").append(`<div>Temperature: ${temp0}</div>`);
 });
+
+// $("#fiveDay").append(`<div>Temperature: ${temp0}</div>`);
 
 /*  if('geolocation' in navigator) {
   /* geolocation is available */
