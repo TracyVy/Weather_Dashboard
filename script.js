@@ -16,6 +16,7 @@ $(document).ready(function () {
     $("#cityInput").val("");
 
     //Basic ajax request
+    var today = moment().format("MM/DD/YYYY");
     var cityName0 = "";
     var icon0 = "";
     var temp0 = "";
@@ -24,45 +25,82 @@ $(document).ready(function () {
     var uv0 = "";
     var lat0 = "";
     var lon0 = "";
-    var today = moment().format("MM/DD/YYYY");
+    var today1 = moment(today, "MM/DD/YYYY").add(1, "days");
+    console.log(today1);
+    var icon1 = "";
+    var temp1 = "";
+    var hum1 = "";
+    var today2 = moment(today, "MM/DD/YYYY").add(2, "days");
+    var icon2 = "";
+    var temp2 = "";
+    var hum2 = "";
+    var today3 = moment(today, "MM/DD/YYYY").add(3, "days");
+    var icon3 = "";
+    var temp3 = "";
+    var hum3 = "";
+    var today4 = moment(today, "MM/DD/YYYY").add(4, "days");
+    var icon4 = "";
+    var temp4 = "";
+    var hum4 = "";
+    var today5 = moment(today, "MM/DD/YYYY").add(5, "days");
+    var icon5 = "";
+    var temp5 = "";
+    var hum5 = "";
     $.ajax({
       type: "GET",
-      // url: `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
-      url: `http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}${apiKey}${units}`,
+      url: `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
       datatype: "JSON",
     }).then(function (response) {
       console.log(response);
-      cityName0 = response.name;
-      icon0 = response.weather[0].icon;
-      temp0 = response.main.temp;
-      hum0 = response.main.humidity;
-      wind0 = response.wind.speed;
-      lat0 = response.coord.lat;
-      lon0 = response.coord.lon;
+      cityName = response.main.name;
+      lat = response.coord.lat;
+      lon = response.coord.lon;
+      // API call to get UV index requires lat & lon
       $.ajax({
         type: "GET",
-        url: `http://api.openweathermap.org/data/2.5/uvi?${apiKey}&lat=${lat0}&lon=${lon0}`,
+        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely${apiKey}${units}`,
         datatype: "JSON",
-      }).then(function (response) {
-        uv0 = response.value;
-        console.log(uv0);
+      }).then(function (res) {
+        console.log(res);
+        icon0 = res.current.weather[0].icon;
+        temp0 = res.current.temp;
+        hum0 = res.current.humidity;
+        wind0 = res.current.wind_speed;
+        console.log(wind0);
+        uv0 = res.current.uvi;
+        icon1 = res.daily[1].weather[0].icon;
+        temp1 = res.daily[1].temp.day;
+        hum1 = res.daily[1].humidity;
+        icon2 = res.daily[2].weather[0].icon;
+        temp2 = res.daily[2].temp.day;
+        hum2 = res.daily[2].humidity;
+        icon3 = res.daily[3].weather[0].icon;
+        temp3 = res.daily[3].temp.day;
+        hum3 = res.daily[3].humidity;
+        icon4 = res.daily[4].weather[0].icon;
+        temp4 = res.daily[4].temp.day;
+        hum4 = res.daily[4].humidity;
+        icon5 = res.daily[5].weather[0].icon;
+        temp5 = res.daily[5].temp.day;
+        hum5 = res.daily[5].humidity;
+        console.log([temp1, temp2, temp3, temp4, temp5]);
+
         $("#history").prepend(
           `<h4 style="border:thin dotted grey;">${cityInput}</h4>`
         );
         $("#daily").empty();
         $("#daily").append(
-          `<h3>${cityName0} (${today})</h3><img src=http://openweathermap.org/img/w/${icon0}.png />`
+          `<h3>${cityName} (${today})</h3><img src=http://openweathermap.org/img/w/${icon0}.png />`
         );
         $("#daily").append(`<p>Temperature: ${temp0}&#8457;</p>`);
         $("#daily").append(`<p>Humidity: ${hum0}%</p>`);
         $("#daily").append(`<p>Wind Speed: ${wind0} MPH</p>`);
         $("#daily").append(`<p>UV Index: ${uv0} </p>`);
+        $("#fiveDay").html(`<h4>5-Day Forecast:</h4>`);
       });
     });
   });
 });
-
-// $("#fiveDay").append(`<div>Temperature: ${temp0}</div>`);
 
 /*  if('geolocation' in navigator) {
   /* geolocation is available */
