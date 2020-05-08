@@ -48,7 +48,7 @@ $(document).ready(function () {
     var hum5 = "";
     $.ajax({
       type: "GET",
-      url: `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
       datatype: "JSON",
     }).then(function (response) {
       console.log(response);
