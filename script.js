@@ -17,6 +17,7 @@ $(document).ready(function () {
 
     //Basic ajax request
     var cityName0 = "";
+    var icon0 = "";
     var temp0 = "";
     var hum0 = "";
     var wind0 = "";
@@ -26,19 +27,17 @@ $(document).ready(function () {
     var today = moment().format("MM/DD/YYYY");
     $.ajax({
       type: "GET",
-      url: `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
+      // url: `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
+      url: `http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}${apiKey}${units}`,
       datatype: "JSON",
     }).then(function (response) {
+      console.log(response);
       cityName0 = response.name;
-      console.log("city name=" + cityName0);
+      icon0 = response.weather[0].icon;
       temp0 = response.main.temp;
-      console.log("temp=" + temp0);
       hum0 = response.main.humidity;
-      console.log("hum0=" + hum0);
       wind0 = response.wind.speed;
-      console.log("wind0=" + wind0);
       lat0 = response.coord.lat;
-      console.log("lat0=" + lat0);
       lon0 = response.coord.lon;
       $.ajax({
         type: "GET",
@@ -51,7 +50,9 @@ $(document).ready(function () {
           `<h4 style="border:thin dotted grey;">${cityInput}</h4>`
         );
         $("#daily").empty();
-        $("#daily").append(`<h3>${cityName0} (${today})</h3>`);
+        $("#daily").append(
+          `<h3>${cityName0} (${today})</h3><img src=http://openweathermap.org/img/w/${icon0}.png />`
+        );
         $("#daily").append(`<p>Temperature: ${temp0}&#8457;</p>`);
         $("#daily").append(`<p>Humidity: ${hum0}%</p>`);
         $("#daily").append(`<p>Wind Speed: ${wind0} MPH</p>`);

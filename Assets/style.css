@@ -15,7 +15,7 @@
 }
 
 #daily {
-  height: 30vh;
+  height: 28vh;
   border-bottom-style: groove;
 }
 
@@ -24,6 +24,7 @@
 } */
 
 .col-md-2 {
+  padding-top: 10px;
   height: 35vh;
   background-color: darksalmon;
   border-style: solid;
