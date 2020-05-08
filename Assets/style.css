@@ -1,21 +1,24 @@
 .col-md-4 {
   margin-top: 0;
+  padding-top: 5px;
   background-color: aliceblue;
+  min-height: 70vh;
 }
 
-.col-md-4 h3,
+.col-md-4 p {
+  margin: 0;
+  font-style: italic;
+}
+
 .col-md-4 ul {
   margin-left: 15px;
 }
 
-.col-md-8 {
-  border-color: cadetblue;
-}
-
 #daily {
-  height: 40%;
+  height: 30vh;
+  border-bottom-style: groove;
 }
 
-#fiveDay {
-  height: 60%;
-}
+/* #fiveDay {
+  
+} */

@@ -47,8 +47,11 @@ $(document).ready(function () {
       }).then(function (response) {
         uv0 = response.value;
         console.log(uv0);
+        $("#history").prepend(
+          `<h4 style="border:thin dotted grey;">${cityInput}</h4>`
+        );
         $("#daily").append(`<h3>${cityName0} (${today})</h3>`);
-        $("#daily").append(`<p>Temperature: ${temp0} F</p>`);
+        $("#daily").append(`<p>Temperature: ${temp0}&#8457;</p>`);
         $("#daily").append(`<p>Humidity: ${hum0}%</p>`);
         $("#daily").append(`<p>Wind Speed: ${wind0} MPH</p>`);
         $("#daily").append(`<p>UV Index: ${uv0} </p>`);
