@@ -19,8 +19,12 @@
   border-bottom-style: groove;
 }
 
+#fiveDay {
+  padding-top: 20px;
+}
+
 .col-md-2 {
   padding-top: 20px;
+  padding-left: 20px;
   height: 20vh;
-  margin-inline: 2px;
 }

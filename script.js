@@ -52,7 +52,6 @@ $(document).ready(function () {
       datatype: "JSON",
     }).then(function (response) {
       console.log(response);
-      cityName = response.main.name;
       lat = response.coord.lat;
       lon = response.coord.lon;
       // API call to get UV index requires lat & lon
@@ -62,6 +61,7 @@ $(document).ready(function () {
         datatype: "JSON",
       }).then(function (res) {
         console.log(res);
+        cityName = response.name;
         icon0 = res.daily[0].weather[0].icon;
         temp0 = res.daily[0].temp;
         hum0 = res.daily[0].humidity;
@@ -86,7 +86,7 @@ $(document).ready(function () {
         console.log([temp1, temp2, temp3, temp4, temp5]);
 
         $("#history").prepend(
-          `<h4 style="border:thin dotted grey;">${cityInput}</h4>`
+          `<h4 style="border: dotted 1px lightgrey;">${cityInput}</h4>`
         );
         $("#daily").empty();
         $("#daily").append(
@@ -97,6 +97,11 @@ $(document).ready(function () {
         $("#daily").append(`<p>Wind Speed: ${wind0} MPH</p>`);
         $("#daily").append(`<p>UV Index: ${uv0} </p>`);
         $("#fiveDay").html(`<h4>5-Day Forecast:</h4>`);
+        $("#forecast1").empty();
+        $("#forecast2").empty();
+        $("#forecast3").empty();
+        $("#forecast4").empty();
+        $("#forecast5").empty();
         $("#forecast1").append(`<h5>${today1}</h5>`);
         $("#forecast1").append(
           `<img src=http://openweathermap.org/img/w/${icon1}.png />`
