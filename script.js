@@ -63,13 +63,15 @@ $(document).ready(function () {
         console.log(res);
         cityName = response.name;
         icon0 = res.daily[0].weather[0].icon;
-        temp0 = res.daily[0].temp;
+        temp0 = res.daily[0].temp.day;
+        console.log(temp0);
         hum0 = res.daily[0].humidity;
         wind0 = res.daily[0].wind_speed;
         console.log(wind0);
         uv0 = res.daily[0].uvi;
         icon1 = res.daily[1].weather[0].icon;
         temp1 = res.daily[1].temp.day;
+        console.log(temp1);
         hum1 = res.daily[1].humidity;
         icon2 = res.daily[2].weather[0].icon;
         temp2 = res.daily[2].temp.day;
@@ -86,7 +88,7 @@ $(document).ready(function () {
         console.log([temp1, temp2, temp3, temp4, temp5]);
 
         $("#history").prepend(
-          `<h4 style="border: dotted 1px lightgrey;">${cityInput}</h4>`
+          `<button><h4 style="text-align: left;">${cityInput}</h4></button>`
         );
         $("#daily").empty();
         $("#daily").append(
