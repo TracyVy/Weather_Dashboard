@@ -16,31 +16,47 @@ $(document).ready(function () {
     $("#cityInput").val("");
 
     //Basic ajax request
-    /** 
-    $.ajax({
-      type: "GET",
-      dataType: "json",
-      url: `https://api.openweathermap.org/data/2.5/weather?zip=${cityInput}${apiKey}&units=imperial`,
-    }).then(function (res) {
-      console.log(res);
-    });
-*/
-
-    var cityName = "";
-    var temp = "";
+    var cityName0 = "";
+    var temp0 = "";
+    var hum0 = "";
+    var wind0 = "";
+    var uv0 = "";
+    var lat0 = "";
+    var lon0 = "";
+    var today = moment().format("MM/DD/YYYY");
     $.ajax({
       type: "GET",
       url: `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}${apiKey}${units}`,
       datatype: "JSON",
     }).then(function (response) {
-      console.log(response);
-      cityName = response.name;
-      temp = response.main.temp;
+      cityName0 = response.name;
+      console.log("city name=" + cityName0);
+      temp0 = response.main.temp;
+      console.log("temp=" + temp0);
+      hum0 = response.main.humidity;
+      console.log("hum0=" + hum0);
+      wind0 = response.wind.speed;
+      console.log("wind0=" + wind0);
+      lat0 = response.coord.lat;
+      console.log("lat0=" + lat0);
+      lon0 = response.coord.lon;
+      $.ajax({
+        type: "GET",
+        url: `http://api.openweathermap.org/data/2.5/uvi?${apiKey}&lat=${lat0}&lon=${lon0}`,
+        datatype: "JSON",
+      }).then(function (response) {
+        uv0 = response.value;
+        console.log(uv0);
+        $("#daily").append(`<h3>${cityName0} (${today})</h3>`);
+        $("#daily").append(`<p>Temperature: ${temp0} F</p>`);
+        $("#daily").append(`<p>Humidity: ${hum0}%</p>`);
+        $("#daily").append(`<p>Wind Speed: ${wind0} MPH</p>`);
+        $("#daily").append(`<p>UV Index: ${uv0} </p>`);
+      });
     });
-
-    $("#daily").prepend(`<div>City: ${cityName}</div>`);
-    $("#fiveDay").prepend(`<div>Temperature: ${temp}</div>`);
   });
+
+  // $("#fiveDay").append(`<div>Temperature: ${temp0}</div>`);
 });
 
 /*  if('geolocation' in navigator) {
