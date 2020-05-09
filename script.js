@@ -3,7 +3,14 @@ $(document).ready(function () {
   var cityInput = "";
   var apiKey = "&APPID=59721a9077b67f8c7ef2afae98ab5d8e";
   var units = "&units=imperial";
-  // var currentW = "";
+
+  for (var i = 0; i < localStorage.length; i++) {
+    var keyValue = localStorage.getItem(localStorage.key(i));
+    console.log(keyValue);
+    $("#history").prepend(
+      `<button><h5 style="text-align: left;">${keyValue}</h5></button>`
+    );
+  }
 
   //Create an event listener and binding it
   $("#submit").on("click", function (e) {
@@ -17,32 +24,29 @@ $(document).ready(function () {
 
     //Basic ajax request
     var today = moment().format("MM/DD/YYYY");
+    var today1 = moment(today).add(1, "days").format("MM/DD/YYYY");
+    var today2 = moment(today).add(2, "days").format("MM/DD/YYYY");
+    var today3 = moment(today).add(3, "days").format("MM/DD/YYYY");
+    var today4 = moment(today).add(4, "days").format("MM/DD/YYYY");
+    var today5 = moment(today).add(5, "days").format("MM/DD/YYYY");
     var cityName = "";
     var icon0 = "";
     var temp0 = "";
     var hum0 = "";
     var wind0 = "";
     var uv0 = "";
-    var lat0 = "";
-    var lon0 = "";
-    var today1 = moment(today).add(1, "days").format("MM/DD/YYYY");
-    console.log(today1);
     var icon1 = "";
     var temp1 = "";
     var hum1 = "";
-    var today2 = moment(today).add(2, "days").format("MM/DD/YYYY");
     var icon2 = "";
     var temp2 = "";
     var hum2 = "";
-    var today3 = moment(today).add(3, "days").format("MM/DD/YYYY");
     var icon3 = "";
     var temp3 = "";
     var hum3 = "";
-    var today4 = moment(today).add(4, "days").format("MM/DD/YYYY");
     var icon4 = "";
     var temp4 = "";
     var hum4 = "";
-    var today5 = moment(today).add(5, "days").format("MM/DD/YYYY");
     var icon5 = "";
     var temp5 = "";
     var hum5 = "";
@@ -62,20 +66,23 @@ $(document).ready(function () {
       }).then(function (res) {
         console.log(res);
         cityName = response.name;
+        var key = moment().format("MM/DD/YY h:m s a");
+        localStorage.setItem(key, cityName);
+        $("#history").prepend(
+          `<button><h4 style="text-align: left;">${cityName}</h4></button>`
+        );
         icon0 = res.daily[0].weather[0].icon;
         temp0 = res.daily[0].temp.day;
-        console.log(temp0);
         hum0 = res.daily[0].humidity;
         wind0 = res.daily[0].wind_speed;
-        console.log(wind0);
         uv0 = res.daily[0].uvi;
         icon1 = res.daily[1].weather[0].icon;
         temp1 = res.daily[1].temp.day;
-        console.log(temp1);
         hum1 = res.daily[1].humidity;
         icon2 = res.daily[2].weather[0].icon;
         temp2 = res.daily[2].temp.day;
         hum2 = res.daily[2].humidity;
+        console.log(hum2);
         icon3 = res.daily[3].weather[0].icon;
         temp3 = res.daily[3].temp.day;
         hum3 = res.daily[3].humidity;
@@ -86,10 +93,6 @@ $(document).ready(function () {
         temp5 = res.daily[5].temp.day;
         hum5 = res.daily[5].humidity;
         console.log([temp1, temp2, temp3, temp4, temp5]);
-
-        $("#history").prepend(
-          `<button><h4 style="text-align: left;">${cityInput}</h4></button>`
-        );
         $("#daily").empty();
         $("#daily").append(
           `<h3>${cityName} (${today})</h3><img src=http://openweathermap.org/img/w/${icon0}.png />`
